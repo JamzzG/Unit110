@@ -33,11 +33,11 @@ Creating a Virtual Machine or Virtual Environment
 
 3.) EACH TIME WE WANT TO ACTIVATE SERVER WE NEED TO ACTIVATE IT
 
-MAC 
-source venv/bin/activate
+        MAC 
+        source venv/bin/activate
 
-WIN 
-venv\Scripts\activate  
+        WIN 
+        venv\Scripts\activate  
 
 (can also deactivate it with deactivate)
 On Windows you want to see (venv) before the command prompt.
@@ -46,7 +46,9 @@ On Windows you want to see (venv) before the command prompt.
 
 5.) Double check that AUTOSAVE is disabled.
 
-6.) Create a .py file and open that inside your cmd venv folder and see if it executes.
+6.) Create a .py file and open that inside your cmd venv folder and see if it executes. To start server: 
+on Terminal type:
+py server.py (py then name of server program)
 
 7.) install flask
 py -m install flask
@@ -68,6 +70,27 @@ Create another endpoint:
 def test():
     return "this another endpoint named test"
 
+@app.get("/api/catalog/<X>") 
+    ***(angle braketed variable allows single endpoint with dynamic variable)***
+def get_by_category(X):
+return "I got: " + category (Testing)
+
+case insensitive search (parse to lowercase) using 
+.lower() method
+
+@app.get("/api/catalog/<category>")
+def get_by_category(category):
+    result = []
+    for prod in catalog:
+        if prod["category".lower()] == category.lower():
+            result.append(prod)
+
+    return json.dumps(result)
+
+    *** The program above returns the requested data after appending the results (note it changed variable and category info into all lowercase to make it case insensitive)
+
+
+
 API Application Programming Interface
 It's a piece of software to act as an interface to other devices.
 API doesn't interact with users, it only works with other devices
@@ -79,3 +102,33 @@ import json       after getting flask at top of document
 
 .dumps is an instruction to JSON to dump info
 
+More names for APIs are Web APIs and Web Services  
+
+Examples: Google Maps, Yahoo, etc
+
+API endpoints are the requested information that gets returned.
+
+json.dumps(version) .dumps mean to show the contents of the file as a string
+
+JS uses camelCase (lowercase until additional words which get capitalized)
+Python uses snake_case (lowercase and underscore to separate)
+Most other Languages use PascalCase
+
+API Verbs
+.get (decribes method type server will respond to)
+.post new or save 
+.put server update 
+.patch
+.delete
+
+Testing Endpoints
+    Rest Clients (Post Man, Insomnia Thunder Client-VSC ext) 
+
+
+You cannot repeat endpoint name with same method type.
+Only first endpoint/method will be executed
+
+variables within endpoints cannot  be repeated either.  The pattern much be different.  
+
+
+To STOP terminal CTRL+C        
