@@ -20,10 +20,6 @@ print_catalog_total(catalog)
 
 
 
-
-
-
-
 def say_hello():
     print ("Hello!")
 

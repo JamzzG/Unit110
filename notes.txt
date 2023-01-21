@@ -133,3 +133,94 @@ variables within endpoints cannot  be repeated either.  The pattern much be diff
 
 To STOP terminal CTRL+C        
 
+
+
+
+01/21 Today's goal is to set up the database for our page.
+    DJANGO is most popular database framework but it does frontend and backend
+For this project we are just using Flask as we just need the backend.
+    Everything will be stored in database except files like images and audio and video
+        If you try to store huge files in the database it will be too slow.
+
+There are 2 catagories of databases:
+    SQL is a domain-specific language used in programming and designed for 
+    managing data held in a relational database management system 
+    ● They use structured query language (SQL) for defining and manipulating data.
+    ● SQL is one of the most versatile and widely-used options available but can be
+       restrictive.
+    ● SQL requires that you use predefined schemas to determine the structure of 
+    your data before you work with it. In addition, all of your data must follow the 
+    same structure. This can require significant upfront preparation.
+    *Most large project will use SQL
+        Downside: A lot of upfront preparation before you set up the database. You have to redefine the schema before.  It's such a complex area that companies have SQL dedicated teams and engineers.
+
+
+NoSQL Databases (Don't use programming language)
+    ● Has a dynamic schema for unstructured data, and data is stored in many ways: 
+       it can be column-oriented, document-oriented, graph based or organized as a 
+       KeyValue store.
+    ● You can create documents without having to first define their structure
+    ●  Each document can have its own unique structure
+    ●  The syntax can vary from database to database
+        Firebase is a google based NoSQL and Mongo is another.
+            They are not similar at all.
+
+MySQL (SQL) vs MongoDB (NoSQL)
+● MySQL is an extremely established database, meaning that there’s a huge 
+community, extensive testing and quite a bit of stability.
+● MySQL is available for all major platforms, including Linux, Windows, Mac, BSD 
+and Solaris. It also has connectors to languages like Node.js, Ruby, C#, C++, 
+Java, Perl, Python and PHP, meaning that it’s not limited to SQL query 
+language.
+● The database is open source and free
+It's set up like an excel file  
+
+MongoDB (NoSQL)
+● Uses Dynamic schema. As mentioned, this gives you flexibility to change your 
+data schema without modifying any of your existing data.
+● MongoDB is horizontally scalable, which helps reduce the workload and scale 
+your business with ease.
+● The database doesn’t require a database administrator. Since it is fairly 
+user-friendly in this way, it can be used by both developers and administrators.
+● It’s high-performing for simple queries.
+looks liks a JS Object or Python Dictionary
+
+*Instructor prefers NoSQL for mobile applications  
+
+For this class we will call a MongoDB Service instead of downloading the Mongo Ap
+
+Demo file name:  JamesDB Pass: Test123
+ip address 0.0.0.0 (any computer address)
+
+change driver and version on next page
+    copy url for the db
+
+create a config.py file
+    connect
+
+py -m pip install pymongo "pymongo[srv]" certifi
+***py (python) -m (module)  pip (installs packages on python) loads last 3 files***
+
+#Certifi provides Mozilla’s carefully curated collection of Root Certificates for validating the trustworthiness of SSL certificates while verifying the identity of TLS hosts. It has been extracted from the Requests project.
+
+
+import pymongo
+import certifi  
+
+connection_str = "mongodb+srv://JamesDB:Test123@cluster0.z59nvld.mongodb.net/?retryWrites=true&w=majority"
+client = pymongo.MongoClient(connection_str, tlsCAFile=certifi.where() )
+db = client.get_database("OnlineStore")
+
+"TLS CA File, or tlsCAFile, is a file that contains the certificate of a trusted certificate authority (CA) that is used to verify the authenticity of a SSL/TLS certificate presented by a server. It is used during the SSL/TLS handshaking process to verify the server's identity and ensure that the client is communicating with the intended server and not an imposter."
+
+
+to escape python use CTRL-Z or exit()
+
+
+.get retrieve
+.post saves data                    it sends the payload (data)
+.put modify exitsting
+.patch modify exitsting
+.delet removes data
+
+always use double quotes and remove commas
