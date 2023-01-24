@@ -224,3 +224,41 @@ to escape python use CTRL-Z or exit()
 .delet removes data
 
 always use double quotes and remove commas
+
+
+mongoDB adds _id:  id:key
+and that ObjectId can crash the JSON dumps.
+
+
+PS C:\Users\grant\OneDrive\Documents\107 Cohort 33\server> git status
+
+Changing Git Repository
+git remote rm origin
+git remote add origin (NEW GIT URL GOES HERE)
+git add .
+git commit -m "Project Notes"
+git push -u origin master  (First time only, after this is it just:  git push  )
+
+
+
+
+
+FROM server.py:
+
+@app.get("/api/catalog")
+def get_catalog():
+    cursor = db.products.find({})
+    #return json.dumps(catalog)  (This was just pulling from the mock data file...not the database as the line above does.)  Why is "cursor" used above?  It's a list that only reads the iterations around the cursor.  You can't parse it into a JSON.  It just travels the array and displays what is inside.  You can parse the results.
+
+Notes about processing:
+Reading to a file is slow...writing is extremely slow.  NEVER use a file to store data.
+
+    Databases are optimized for data storage and way more efficient at retrieving that data.  They can read and write a single item or filter close to 10k items in just about the same time.
+
+    Two options for getting the info is to read all of them and the use a program to filter those results...or just use the db to filter it for you and it always be faster.
+
+    NoSQL might not be able to do some calculations like lowest price etc.
+
+    DEBUGGING NOTE:  Always check with comparisons that they pass even if first check has no comparison to go off of.
+
+    HTTP requests have time limits...sometimes 3-5 seconds rarely more.

@@ -1,4 +1,6 @@
 from flask import Flask, request
+from flask import jsonify
+# need to be sure to add the ,request above
 import json
 from mock_data import catalog
 from config import db
@@ -32,7 +34,13 @@ def version():
 
 @app.get("/api/catalog")
 def get_catalog():
-    return json.dumps(catalog)
+    cursor = db.products.find({})
+    results = []
+    for prod in cursor:
+        prod["_id"] = str(prod["_id"]) #fixes the _id issue with db
+        results.append(prod)
+    return json.dumps(results)
+
 
 #save products
 @app.post("/api/catalog")
@@ -45,44 +53,55 @@ def save_catalog():
     print (product)
     return json.dumps(product)
 
-
-
-
 # get all products that belong to a category
 @app.get("/api/catalog/<category>")
 def get_by_category(category):
-    result = []
-    for prod in catalog:
-        if prod["category".lower()] == category.lower():
-            result.append(prod)
-
-    return json.dumps(result)
+    cursor = db.products.find ({"category": category})
+    results = []
+    for prod in cursor:
+        prod["_id"] = str(prod["_id"]) 
+        results.append(prod)
+    return json.dumps(results)
 
 
 @app.get("/api/catalog/search/<title>")
 def search_by_title(title):
-    result = []
-    for item in catalog:
-        if title.lower() in item["title"].lower():
-            result.append(item)
-    
-    return json.dumps(result)
+    cursor = db.products.find ({"title": {"$regex": title, "$options": "i"} }) #"$regex": title means not an exact match...but one that contains the string searched. and "$options": "i" means it is a case insensitive search.  result will show under api/category/search/string_searched
+    results = []
+    for prod in cursor:
+        prod["_id"] = str(prod["_id"]) 
+        results.append(prod)
+    return json.dumps(results)
+
     
 @app.get("/api/product/cheaper/<limit>")
 def cheaper_than(limit):
+    cursor = db.products.find ({}) 
     result = []
-    for prod in catalog:
+    for prod in cursor:
         if prod["price"]< float(limit):
+            prod["_id"] = str(prod["_id"]) 
             result.append(prod)
 
     return json.dumps(result)
 
-
 @app.get("/api/product/total_items")
 def total_items():
-    count = len(catalog)
-    return json.dumps(count)
-#     json.dumps 
+    count = db.products.count_documents({})
+    return jsonify(count)
+
+
+
+# @app.get("/api/product/total_items")
+# def total_items():
+#     count = db.products.count()
+#     return json.dumps(count)
+# #     json.dumps 
+
+
+
+
+
 
 
 # The code below was modified from CHAT GPT
@@ -98,11 +117,19 @@ def find_lowest_price():
     
 @app.get("/api/product/cheapest")
 def get_cheapest():
-    answer = catalog [0]
-    for prod in catalog:
+    cursor = db.products.find ({}) 
+    answer = cursor [0]
+    for prod in cursor:
         if prod["price"] < answer["price"]:
-            answer = prod 
+            
+            answer = prod
+
+    answer["_id"] = str(answer["_id"])
     return json.dumps(answer)
+
+
+
+
 
 
 
