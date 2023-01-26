@@ -262,3 +262,17 @@ Reading to a file is slow...writing is extremely slow.  NEVER use a file to stor
     DEBUGGING NOTE:  Always check with comparisons that they pass even if first check has no comparison to go off of.
 
     HTTP requests have time limits...sometimes 3-5 seconds rarely more.
+
+disable cors 
+-m pip install flask-cors
+
+
+from server.py
+from flask_cors import CORS
+
+app = Flask ("server")
+CORS(app) # disable CORS to allow requests from any origin
+
+
+THUNDERCLIENT is just for testing...now we need to connect a real client.
+Server needs to be running

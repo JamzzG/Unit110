@@ -4,8 +4,10 @@ from flask import jsonify
 import json
 from mock_data import catalog
 from config import db
+from flask_cors import CORS
 
 app = Flask ("server")
+CORS(app) # disable CORS to allow requests from any origin
 
 @app.get ("/")
 def home():
@@ -92,11 +94,10 @@ def total_items():
 
 
 
-# @app.get("/api/product/total_items")
+# @app.route("/api/product/total_items")   ***This ia an older method.  The .route method allows more than get requests but using .get is still preferred in this case. ***
 # def total_items():
 #     count = db.products.count()
 #     return json.dumps(count)
-# #     json.dumps 
 
 
 
