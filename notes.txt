@@ -31,7 +31,8 @@ Creating a Virtual Machine or Virtual Environment
    program    module   module being called     new folder name   
      py         -m             venv                   venv
 
-3.) EACH TIME WE WANT TO ACTIVATE SERVER WE NEED TO ACTIVATE IT
+
+3.) EACH TIME WE WANT TO USE SERVER WE NEED TO ACTIVATE IT
 
         MAC 
         source venv/bin/activate
@@ -276,3 +277,8 @@ CORS(app) # disable CORS to allow requests from any origin
 
 THUNDERCLIENT is just for testing...now we need to connect a real client.
 Server needs to be running
+
+110 modules exam
+
+pass code:
+fsdi110
